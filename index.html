@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>InfinityArt KI-Bildgenerator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <div>
+          <p class="tag">∞ Unendlicher KI-Bildgenerator</p>
+          <h1>InfinityArt</h1>
+          <p class="subtitle">
+            Erstelle endlos neue Bildvariationen aus deinem Prompt – lokal im Browser,
+            ohne Limits. Generiere so viele KI-ähnliche Kunstwerke, wie du willst.
+          </p>
+        </div>
+        <div class="hero-card">
+          <div class="stat">
+            <span>Render-Engine</span>
+            <strong>PromptSeed v1</strong>
+          </div>
+          <div class="stat">
+            <span>Bildformat</span>
+            <strong>512 × 512</strong>
+          </div>
+          <div class="stat">
+            <span>Modus</span>
+            <strong>Unendlich</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="panel">
+        <form id="generator-form" class="controls">
+          <label class="field">
+            <span>Dein Prompt</span>
+            <input
+              id="prompt"
+              type="text"
+              placeholder="z. B. Neon-Stadt bei Nacht, cineastisches Licht"
+              required
+            />
+          </label>
+          <label class="field">
+            <span>Stilrichtung</span>
+            <select id="style">
+              <option value="dream">Dreamy</option>
+              <option value="noir">Noir</option>
+              <option value="vapor">Vaporwave</option>
+              <option value="terra">Terracotta</option>
+              <option value="ocean">Ocean</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Variationen pro Runde</span>
+            <input id="batch" type="number" min="1" max="8" value="4" />
+          </label>
+          <div class="actions">
+            <button type="submit" class="primary">Jetzt generieren</button>
+            <button type="button" id="more" class="ghost">Mehr Bilder</button>
+            <button type="button" id="clear" class="ghost">Galerie leeren</button>
+          </div>
+        </form>
+        <div class="tips">
+          <h3>Tipps für unendliche Ideen</h3>
+          <ul>
+            <li>Füge Mood-Keywords wie „mystisch“, „retro“, „cinematic“ hinzu.</li>
+            <li>Kombiniere Lichtstimmungen: „goldenes Licht“, „neon glow“.</li>
+            <li>Nutze konkrete Objekte: „schwebende Insel“, „gläsernes Schiff“.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="gallery">
+        <div class="gallery-header">
+          <h2>Generierte Bilder</h2>
+          <p id="counter">Noch keine Bilder erstellt.</p>
+        </div>
+        <div id="grid" class="grid"></div>
+        <div id="sentinel" class="sentinel">
+          <span>Scrollen für mehr Bilder…</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>InfinityArt läuft vollständig lokal im Browser. Keine Daten verlassen dein Gerät.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
