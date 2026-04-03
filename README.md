@@ -1,16 +1,29 @@
-## Hi there 👋
+## Telegram File Storage Bot
 
-<!--
-**Pfunny/Pfunny** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+This project contains a legal Telegram bot for storing files that users upload themselves.
 
-Here are some ideas to get you started:
+### Features
+- `/start`: help and command overview
+- `/save`: upload instructions
+- `/list`: list your saved files
+- `/delete <filename>`: remove a file from your personal folder
+- Handles incoming `video` and `document` messages and stores them locally
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### Setup
+1. Create a bot with `@BotFather` and get your `BOT_TOKEN`.
+2. Copy `.env.example` to `.env` and fill in your token.
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Run the bot:
+   ```bash
+   python bot.py
+   ```
+
+### Environment variables
+- `BOT_TOKEN`: your Telegram bot token (required)
+- `STORAGE_DIR`: root directory for saved files (default: `storage`)
+
+### Notes
+Please use this only for legal content you have rights to upload and store.
