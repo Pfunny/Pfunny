@@ -1,0 +1,15 @@
+import React,{useMemo,useState}from'react';
+const KEY='studio-release-checks';
+const checks=['Dashboard und Navigation öffnen','Projekt anlegen und speichern','Buchseiten bearbeiten','Medien importieren','KDP-Metadaten speichern','Coverdaten berechnen','Backup und Sync-Paket exportieren','Veröffentlichungsbericht exportieren'];
+const read=(k:string)=>{try{return JSON.parse(localStorage.getItem(k)||'null')}catch{return null}};
+export default function ReleaseCenter(){
+ const [done,setDone]=useState<boolean[]>(()=>read(KEY)||checks.map(()=>false));
+ const [version,setVersion]=useState(()=>localStorage.getItem('studio-release-version')||'1.0.0');
+ const diagnostics=useMemo(()=>[
+  ['Lokaler Speicher',typeof localStorage!=='undefined'],['Service Worker','serviceWorker'in navigator],['Online-Status',navigator.onLine],['Projekte',Array.isArray(read('studio-projects'))],['Buchseiten',!!read('studio-book-pages')],['KDP-Metadaten',!!read('studio-kdp-metadata')],['Coverdaten',!!read('studio-cover-pro')],['Backup-Daten',!!read('studio-versions')||!!read('studio-snapshots')]
+ ],[]);
+ const passed=diagnostics.filter(x=>x[1]).length;const manual=done.filter(Boolean).length;const score=Math.round(((passed+manual)/(diagnostics.length+checks.length))*100);
+ const update=(i:number)=>{const n=[...done];n[i]=!n[i];setDone(n);localStorage.setItem(KEY,JSON.stringify(n))};
+ const exportReport=()=>{localStorage.setItem('studio-release-version',version);const data={version,createdAt:new Date().toISOString(),score,diagnostics:Object.fromEntries(diagnostics),manualChecks:Object.fromEntries(checks.map((c,i)=>[c,done[i]])),userAgent:navigator.userAgent};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download=`CH-FANDRICH-Release-${version}.json`;a.click();URL.revokeObjectURL(a.href)};
+ return <div><div className="panel-head"><div><h2>Test- & Release-Center</h2><p>Prüft die lokale Studio-Installation vor einer neuen Version.</p></div><strong>{score}% bereit</strong></div><div className="two-columns"><div><h3>Automatische Prüfungen</h3>{diagnostics.map(([name,ok])=><div className="setting" key={String(name)}><span>{String(name)}</span><b>{ok?'✅ Bestanden':'⚠️ Prüfen'}</b></div>)}</div><div><h3>Manuelle Abnahme</h3>{checks.map((c,i)=><label className="setting" key={c}><span>{c}</span><input type="checkbox" checked={done[i]} onChange={()=>update(i)}/></label>)}</div></div><div className="setting"><label>Versionsnummer <input value={version} onChange={e=>setVersion(e.target.value)} style={{marginLeft:10,padding:8,borderRadius:8,border:'1px solid #cbd5e1'}}/></label><button onClick={exportReport}>Release-Bericht exportieren</button></div><p className="muted">Der Bericht ersetzt keine automatisierten Browser- oder CI-Tests, dokumentiert aber den lokalen Abnahmestand nachvollziehbar.</p></div>
+}
