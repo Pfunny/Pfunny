@@ -6,24 +6,23 @@ let mountedRoot: Root | null = null;
 let mountedElement: Element | null = null;
 
 function mountCoverStudio() {
+  if (mountedElement && document.body.contains(mountedElement)) return;
+
+  if (mountedRoot) {
+    mountedRoot.unmount();
+    mountedRoot = null;
+    mountedElement = null;
+  }
+
   const headings = Array.from(document.querySelectorAll('.content .panel h2'));
   const heading = headings.find(node => node.textContent?.trim() === 'Cover-Studio');
   const panel = heading?.closest('.panel');
+  if (!panel) return;
 
-  if (!panel) {
-    if (mountedRoot) {
-      mountedRoot.unmount();
-      mountedRoot = null;
-      mountedElement = null;
-    }
-    return;
-  }
-
-  if (mountedElement === panel) return;
-  mountedRoot?.unmount();
   panel.innerHTML = '<div id="react-cover-studio-root"></div>';
   const target = panel.querySelector('#react-cover-studio-root');
   if (!target) return;
+
   mountedRoot = createRoot(target);
   mountedRoot.render(<CoverStudio />);
   mountedElement = panel;
