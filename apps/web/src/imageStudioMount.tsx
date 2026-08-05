@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import ImageStudio from './ImageStudio';
+import './imageStudio.css';
 
 let root:Root|null=null;
 function ensureNavigation(){
