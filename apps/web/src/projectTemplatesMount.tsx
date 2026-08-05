@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import ProjectTemplates from './ProjectTemplates';
+import './projectTemplates.css';
 
 let root: Root | null = null;
 
