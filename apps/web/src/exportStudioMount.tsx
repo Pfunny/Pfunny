@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import ExportStudio from './ExportStudio';
+import './exportStyles.css';
 
 let mountedRoot: Root | null = null;
 let panel: HTMLElement | null = null;
