@@ -1,0 +1,12 @@
+{
+  "name": "CH.FANDRICH Studio",
+  "short_name": "CF Studio",
+  "description": "Autorenplattform für KDP-Buchprojekte",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef2f7",
+  "theme_color": "#111827",
+  "lang": "de",
+  "icons": []
+}
