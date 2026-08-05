@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import './bookStudio.css';
 
 type Section = 'frontmatter' | 'main' | 'endmatter';
 type Page = { id: string; section: Section; title: string; content: string; showPageNumber: boolean };
