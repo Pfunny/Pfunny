@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import DataManager from './DataManager';
+import './dataManager.css';
 
 let root: Root | null = null;
 let panel: HTMLElement | null = null;
@@ -14,7 +15,8 @@ function ensureNavigation() {
   button.addEventListener('click', () => {
     document.querySelectorAll('.sidebar nav button').forEach(item => item.classList.remove('active'));
     button.classList.add('active');
-    document.querySelector('.content > .topbar h1')!.textContent = 'Daten & Backup';
+    const heading = document.querySelector('.content > .topbar h1');
+    if (heading) heading.textContent = 'Daten & Backup';
     const content = document.querySelector('.content');
     if (!content) return;
     Array.from(content.children).forEach(child => { if (!child.classList.contains('topbar')) child.remove(); });
