@@ -4,6 +4,7 @@ type Todo={level:'hoch'|'mittel'|'niedrig';title:string;detail:string;module:str
 const read=(key:string,fallback:any)=>{try{return JSON.parse(localStorage.getItem(key)||'null')??fallback}catch{return fallback}};
 const array=(value:any)=>Array.isArray(value)?value:[];
 const text=(value:any)=>typeof value==='string'?value.trim():'';
+const priority={hoch:0,mittel:1,niedrig:2} as const;
 
 export default function AuthorAssistant(){
  const[refresh,setRefresh]=useState(0);
@@ -38,7 +39,7 @@ export default function AuthorAssistant(){
   const scoreParts=[projects.length>0,pages.length>=8,!!title,!!author,description.length>=120,keywords.length>=7,categories.length>=2,media.length>0,!!(text(cover.title)||cover.trimSize),done>=7];
   const score=Math.round(scoreParts.filter(Boolean).length/scoreParts.length*100);
   const seo=Math.round(([title.length>=10&&title.length<=180,subtitle.length>0,description.length>=120,keywords.length>=7,categories.length>=2].filter(Boolean).length/5)*100);
-  return{projects,pages,media,title,subtitle,description,keywords,categories,todos:todos.sort((a,b)=>({hoch:0,mittel:1,niedrig:2}[a.level]-({hoch:0,mittel:1,niedrig:2}[b.level])),score,seo};
+  return{projects,pages,media,title,subtitle,description,keywords,categories,todos:todos.sort((a,b)=>priority[a.level]-priority[b.level]),score,seo};
  },[refresh]);
  const exportReport=()=>{const blob=new Blob([JSON.stringify({...report,createdAt:new Date().toISOString()},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='KI-Autorenassistent-Bericht.json';a.click();URL.revokeObjectURL(a.href)};
  return <div className="author-assistant">

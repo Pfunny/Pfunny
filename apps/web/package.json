@@ -1,12 +1,17 @@
 {
   "name": "ch-fandrich-studio-web",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.1.0",
+  "description": "CH.FANDRICH Studio web application",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
@@ -16,6 +21,7 @@
     "react-dom": "latest"
   },
   "devDependencies": {
+    "@playwright/test": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest"
   }
