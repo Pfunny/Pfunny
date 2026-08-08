@@ -13,7 +13,7 @@ const sendJson = (res, status, payload) => {
   res.end(JSON.stringify(payload));
 };
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return sendJson(res, 405, { error: "Nur POST-Anfragen sind erlaubt." });
@@ -84,4 +84,4 @@ export default async function handler(req, res) {
     console.error("Image generation failed", error);
     return sendJson(res, 500, { error: "Serverfehler bei der Bildgenerierung." });
   }
-}
+};
