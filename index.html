@@ -3,91 +3,97 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>InfinityArt KI-Bildgenerator</title>
+    <meta name="theme-color" content="#5e46ff" />
+    <title>InfinityArt – Ausmalbilder Generator</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app">
       <header class="hero">
         <div>
-          <p class="tag">∞ Unendlicher KI-Bildgenerator</p>
+          <p class="tag">∞ Privater KI-Ausmalbilder Generator</p>
           <h1>InfinityArt</h1>
           <p class="subtitle">
-            Erstelle endlos neue Bildvariationen aus deinem Prompt – lokal im Browser,
-            ohne Limits. Generiere so viele KI-ähnliche Kunstwerke, wie du willst.
+            Erstelle echte Schwarz-Weiß-Ausmalbilder mit OpenAI. Optimiert für Hochformat,
+            klare Konturen und einen 8,5 × 11 Zoll Download.
           </p>
         </div>
         <div class="hero-card">
-          <div class="stat">
-            <span>Render-Engine</span>
-            <strong>PromptSeed v1</strong>
-          </div>
-          <div class="stat">
-            <span>Bildformat</span>
-            <strong>512 × 512</strong>
-          </div>
-          <div class="stat">
-            <span>Modus</span>
-            <strong>Unendlich</strong>
-          </div>
+          <div class="stat"><span>KI-Modell</span><strong>GPT Image</strong></div>
+          <div class="stat"><span>Generierung</span><strong>1024 × 1536</strong></div>
+          <div class="stat"><span>Download</span><strong>2550 × 3300 px</strong></div>
         </div>
       </header>
 
       <section class="panel">
         <form id="generator-form" class="controls">
           <label class="field">
-            <span>Dein Prompt</span>
-            <input
-              id="prompt"
-              type="text"
-              placeholder="z. B. Neon-Stadt bei Nacht, cineastisches Licht"
-              required
-            />
+            <span>Privates Passwort</span>
+            <input id="password" type="password" autocomplete="current-password" placeholder="Dein App-Passwort" required />
           </label>
+
+          <label class="field field-wide">
+            <span>Was soll auf dem Ausmalbild zu sehen sein?</span>
+            <textarea id="prompt" rows="4" placeholder="z. B. süßer Löwe mit Schmetterlingen auf einer Blumenwiese" required></textarea>
+          </label>
+
           <label class="field">
-            <span>Stilrichtung</span>
+            <span>Ausmalbild-Stil</span>
             <select id="style">
-              <option value="dream">Dreamy</option>
-              <option value="noir">Noir</option>
-              <option value="vapor">Vaporwave</option>
-              <option value="terra">Terracotta</option>
-              <option value="ocean">Ocean</option>
+              <option value="cute">Süße Tiere</option>
+              <option value="simple">Einfach für Kinder</option>
+              <option value="detailed">Detailreich</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="mandala">Mandala-Stil</option>
             </select>
           </label>
+
           <label class="field">
-            <span>Variationen pro Runde</span>
-            <input id="batch" type="number" min="1" max="8" value="4" />
+            <span>Qualität</span>
+            <select id="quality">
+              <option value="medium" selected>Standard</option>
+              <option value="high">Hoch</option>
+              <option value="low">Sparsam</option>
+            </select>
           </label>
-          <div class="actions">
-            <button type="submit" class="primary">Jetzt generieren</button>
-            <button type="button" id="more" class="ghost">Mehr Bilder</button>
+
+          <label class="field">
+            <span>Bilder pro Runde</span>
+            <input id="batch" type="number" min="1" max="4" value="1" />
+          </label>
+
+          <div class="actions field-wide">
+            <button type="submit" id="generate" class="primary">Ausmalbild erstellen</button>
             <button type="button" id="clear" class="ghost">Galerie leeren</button>
           </div>
+          <p id="status" class="status field-wide" role="status" aria-live="polite"></p>
         </form>
-        <div class="tips">
-          <h3>Tipps für unendliche Ideen</h3>
+
+        <aside class="tips">
+          <h3>Für saubere KDP-Ausmalbilder</h3>
           <ul>
-            <li>Füge Mood-Keywords wie „mystisch“, „retro“, „cinematic“ hinzu.</li>
-            <li>Kombiniere Lichtstimmungen: „goldenes Licht“, „neon glow“.</li>
-            <li>Nutze konkrete Objekte: „schwebende Insel“, „gläsernes Schiff“.</li>
+            <li>Nur Schwarz-Weiß-Linien, keine Graustufen und keine Schattierungen.</li>
+            <li>Keine Texte, Seitenzahlen oder Wasserzeichen im Motiv.</li>
+            <li>Das Motiv bleibt mit Sicherheitsabstand vom Seitenrand.</li>
+            <li>Der Download wird auf eine 8,5 × 11 Zoll Seite mit 2550 × 3300 px gesetzt.</li>
           </ul>
-        </div>
+          <p class="note">Hinweis: Jede echte KI-Generierung nutzt dein OpenAI-API-Konto und kann Kosten verursachen.</p>
+        </aside>
       </section>
 
       <section class="gallery">
         <div class="gallery-header">
-          <h2>Generierte Bilder</h2>
-          <p id="counter">Noch keine Bilder erstellt.</p>
+          <div>
+            <h2>Deine Ausmalbilder</h2>
+            <p id="counter">Noch keine Bilder erstellt.</p>
+          </div>
         </div>
         <div id="grid" class="grid"></div>
-        <div id="sentinel" class="sentinel">
-          <span>Scrollen für mehr Bilder…</span>
-        </div>
       </section>
     </main>
 
     <footer class="footer">
-      <p>InfinityArt läuft vollständig lokal im Browser. Keine Daten verlassen dein Gerät.</p>
+      <p>Der OpenAI-API-Schlüssel bleibt serverseitig in Vercel und wird nicht an den Browser ausgeliefert.</p>
     </footer>
 
     <script src="app.js"></script>
